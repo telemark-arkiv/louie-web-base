@@ -1,0 +1,36 @@
+{
+  "name": "louie-web-base",
+  "version": "1.0.0",
+  "description": "Base web interface for Louie",
+  "license": "MIT",
+  "author": {
+    "name": "Geir Gåsodden",
+    "email": "geir.gasodden@pythonia.no",
+    "url": "https://github.com/zrrrzzt"
+  },
+  "main": "index.js",
+  "engines": {
+    "node": ">=0.12.0"
+  },
+  "scripts": {
+    "test": "standard && tap --reporter=spec test/*.js",
+    "coverage": "tap test/*.js --coverage",
+    "coveralls": "tap --cov --coverage-report=lcov test/*.js && cat coverage/lcov.info | coveralls",
+    "setup": "npm install && node setup.js"
+  },
+  "keywords": [
+    "Louie"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/telemark/louie-web-base.git"
+  },
+  "bugs": {
+    "url": "http://github.com/telemark/louie-web-base/issues"
+  },
+  "devDependencies": {
+    "coveralls": "^2.11.4",
+    "standard": "^5.4.1",
+    "tap": "^2.3.1"
+  }
+}
