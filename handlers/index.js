@@ -7,6 +7,7 @@ var wreckOptions = {
 }
 
 function getFrontpage (request, reply) {
+  console.log(request.auth.credentials)
   var viewOptions = {}
   reply.view('index', viewOptions)
 }
@@ -17,12 +18,31 @@ function getLoginPage (request, reply) {
 }
 
 function doLogin (request, reply) {
+  var jwt = require('jsonwebtoken')
   var payload = request.payload
   var username = payload.username
   var password = payload.password
-
-  reply({username: username, password: password})
+  var tokenOptions = {
+    expiresIn: '1h',
+    issuer: 'https://auth.t-fk.no'
+  }
+  var data = {
+    id: 898766,
+    user: username
+  }
+  var token = jwt.sign(data, config.JWT_SECRET, tokenOptions)
+  request.auth.session.set({
+    token: token,
+    isAuthenticated: true
+  })
+  reply.redirect('/')
 }
+
+function doLogout (request, reply) {
+  request.auth.session.clear();
+  reply.redirect('/');
+}
+
 
 function getPoliticians (request, reply) {
   var skipNum = request.query.skip ? parseInt(request.query.skip, 10) : 0
@@ -166,6 +186,8 @@ module.exports.getFrontpage = getFrontpage
 module.exports.getLoginPage = getLoginPage
 
 module.exports.doLogin = doLogin
+
+module.exports.doLogout = doLogout
 
 module.exports.getPoliticians = getPoliticians
 

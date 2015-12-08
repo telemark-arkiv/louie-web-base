@@ -16,7 +16,15 @@ var routes = [
     path: '/login',
     config: {
       handler: handlers.getLoginPage,
-      description: 'Show the Logingpage'
+      description: 'Show the Logingpage',
+      auth: false
+    }
+  },
+  {
+    method: 'GET',
+    path: '/logout',
+    config: {
+      handler: handlers.doLogout
     }
   },
   {
@@ -24,7 +32,8 @@ var routes = [
     path: '/login',
     config: {
       handler: handlers.doLogin,
-      description: 'Login'
+      description: 'Login',
+      auth: false
     }
   },
   {

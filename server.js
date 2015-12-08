@@ -5,6 +5,14 @@ var Hoek = require('hoek')
 var server = new Hapi.Server()
 var config = require('./config')
 var louieService = require('./index')
+var validate = require('./lib/validateJWT')
+var yarOptions = {
+  storeBlank: false,
+  cookieOptions: {
+    password: config.YAR_SECRET,
+    isSecure: true
+  }
+}
 
 server.connection({
   port: config.SERVER_PORT
@@ -38,6 +46,9 @@ server.register(require('inert'), function (err) {
       directory: {
         path: 'public'
       }
+    },
+    config: {
+      auth: false
     }
   })
 })
@@ -50,6 +61,27 @@ server.register([
 ], function (err) {
   if (err) {
     console.error('Failed to load a plugin:', err)
+  }
+})
+
+server.register(require('hapi-auth-cookie'), function (err) {
+
+  server.auth.strategy('session', 'cookie', {
+    password: config.COOKIE_SECRET,
+    cookie: 'louie-session',
+    redirectTo: '/login',
+    isSecure: false
+  })
+
+  server.auth.default('session');
+})
+
+server.register({
+  register: require('yar'),
+  options: yarOptions
+}, function (err) {
+  if (err) {
+    console.log(err)
   }
 })
 
