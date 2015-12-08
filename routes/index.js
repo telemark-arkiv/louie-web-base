@@ -13,6 +13,22 @@ var routes = [
   },
   {
     method: 'GET',
+    path: '/login',
+    config: {
+      handler: handlers.getLoginPage,
+      description: 'Show the Logingpage'
+    }
+  },
+  {
+    method: 'POST',
+    path: '/login',
+    config: {
+      handler: handlers.doLogin,
+      description: 'Login'
+    }
+  },
+  {
+    method: 'GET',
     path: '/politicians',
     config: {
       handler: handlers.getPoliticians,

@@ -8,33 +8,20 @@ var wreckOptions = {
 
 function getFrontpage (request, reply) {
   var viewOptions = {}
-  var jobsToDo = 2
-  var jobsDone = 0
+  reply.view('index', viewOptions)
+}
 
-  function allAboard () {
-    jobsDone++
-    if (jobsDone === jobsToDo) {
-      reply.view('index', viewOptions)
-    }
-  }
+function getLoginPage (request, reply) {
+  var viewOptions = {}
+  reply.view('login', viewOptions, {layout: 'layout-login'})
+}
 
-  Wreck.get(config.API_URL + '/parties', wreckOptions, function (error, res, payload) {
-    if (error) {
-      reply(error)
-    } else {
-      viewOptions.parties = payload
-    }
-    allAboard()
-  })
+function doLogin (request, reply) {
+  var payload = request.payload
+  var username = payload.username
+  var password = payload.password
 
-  Wreck.get(config.API_URL + '/committees', wreckOptions, function (error, res, payload) {
-    if (error) {
-      reply(error)
-    } else {
-      viewOptions.committees = payload
-    }
-    allAboard()
-  })
+  reply({username: username, password: password})
 }
 
 function getPoliticians (request, reply) {
@@ -175,6 +162,10 @@ function getContactInformation (request, reply) {
 }
 
 module.exports.getFrontpage = getFrontpage
+
+module.exports.getLoginPage = getLoginPage
+
+module.exports.doLogin = doLogin
 
 module.exports.getPoliticians = getPoliticians
 
