@@ -21,6 +21,15 @@ var routes = [
     }
   },
   {
+    method: 'POST',
+    path: '/login',
+    config: {
+      handler: handlers.doLogin,
+      description: 'Login',
+      auth: false
+    }
+  },
+  {
     method: 'GET',
     path: '/logout',
     config: {
@@ -28,12 +37,10 @@ var routes = [
     }
   },
   {
-    method: 'POST',
-    path: '/login',
+    method: 'GET',
+    path: '/tasks',
     config: {
-      handler: handlers.doLogin,
-      description: 'Login',
-      auth: false
+      handler: handlers.getTasks
     }
   },
   {
