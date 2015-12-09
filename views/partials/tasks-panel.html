@@ -1,0 +1,27 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-list fa-fw"></i> Oppgaver
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="list-group">
+                    {{#each tasks}}
+                    <a href="{{url}}" class="list-group-item">
+                        <i class="fa fa-check fa-fw"></i> {{name}}
+                        <span class="pull-right text-muted small">
+                            {{system}} <em>4 minutes ago</em>
+                        </span>
+                    </a>
+                    {{/each}}
+                </div>
+                <!-- /.list-group -->
+                <a href="#" class="btn btn-default btn-block">Vis alle oppgaver</a>
+            </div>
+            <!-- /.panel-body -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+    </div>
+<!-- /.row -->

@@ -8,13 +8,22 @@ var wreckOptions = {
 }
 
 function getFrontpage (request, reply) {
-  console.log(request.auth.credentials)
   var viewOptions = {
     credentials: request.auth.credentials,
     version: pkg.version,
     versionName: pkg.louie.versionName
   }
-  reply.view('index', viewOptions)
+  wreckOptions.headers = {
+    Authorization: request.auth.credentials.token
+  }
+  Wreck.get(config.API_URL + '/tasks', wreckOptions, function (error, res, payload) {
+    if (error) {
+      reply(error)
+    } else {
+      viewOptions.tasks = payload
+      reply.view('index', viewOptions)
+    }
+  })
 }
 
 function getLoginPage (request, reply) {
