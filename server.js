@@ -5,7 +5,7 @@ var Hoek = require('hoek')
 var server = new Hapi.Server()
 var config = require('./config')
 var louieService = require('./index')
-// var validate = require('./lib/validateJWT')
+var validate = require('./lib/validateJWT')
 
 server.connection({
   port: config.SERVER_PORT
@@ -65,6 +65,7 @@ server.register(require('hapi-auth-cookie'), function (err) {
   server.auth.strategy('session', 'cookie', {
     password: config.COOKIE_SECRET,
     cookie: 'louie-session',
+    validateFunc: validate,
     redirectTo: '/login',
     isSecure: false
   })
