@@ -35,23 +35,35 @@ function doLogin (request, reply) {
   var jwt = require('jsonwebtoken')
   var payload = request.payload
   var username = payload.username
-  // var password = payload.password
-  var tokenOptions = {
-    expiresIn: '1h',
-    issuer: 'https://auth.t-fk.no'
-  }
-  var data = {
-    id: 898766,
-    user: username,
-    name: 'Bob Geldof'
-  }
-  var token = jwt.sign(data, config.JWT_SECRET, tokenOptions)
-  request.auth.session.set({
-    token: token,
-    isAuthenticated: true,
-    data: data
+  var password = payload.password
+  var LdapAuth = require('ldapauth-fork')
+  var auth = new LdapAuth(config.LDAP)
+
+  auth.authenticate(username, password, function (err, user) {
+    if (err) {
+      console.error(JSON.stringify(err))
+    } else {
+      console.log(user)
+      var tokenOptions = {
+        expiresIn: '1h',
+        issuer: 'https://auth.t-fk.no'
+      }
+      var token = jwt.sign(user, config.JWT_SECRET, tokenOptions)
+      request.auth.session.set({
+        token: token,
+        isAuthenticated: true,
+        data: user
+      })
+      auth.close(function (err) {
+        if (err) {
+          console.error(err)
+        } else {
+          console.log('bye!')
+        }
+      })
+      reply.redirect('/')
+    }
   })
-  reply.redirect('/')
 }
 
 function doLogout (request, reply) {
