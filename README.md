@@ -1,4 +1,6 @@
 # louie-web-base
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/telemark/louie-web-base.svg)](https://greenkeeper.io/)
 Base web interface for Louie
 
 ## Test
