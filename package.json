@@ -39,19 +39,19 @@
   },
   "devDependencies": {
     "coveralls": "^2.11.4",
-    "standard": "^5.4.1",
-    "tap": "^2.3.1"
+    "standard": "^8.6.0",
+    "tap": "^10.0.2"
   },
   "dependencies": {
     "handlebars": "^4.0.5",
-    "hapi": "^11.1.2",
-    "hapi-auth-cookie": "^3.1.0",
-    "hoek": "^3.0.4",
-    "inert": "^3.2.0",
-    "jsonwebtoken": "^5.4.1",
-    "ldapauth-fork": "^2.5.0",
+    "hapi": "^16.1.0",
+    "hapi-auth-cookie": "^6.1.1",
+    "hoek": "^4.1.0",
+    "inert": "^4.1.0",
+    "jsonwebtoken": "^7.2.1",
+    "ldapauth-fork": "^3.0.0",
     "path": "^0.12.7",
     "vision": "^4.0.1",
-    "wreck": "^7.0.0"
+    "wreck": "^10.0.0"
   }
 }
