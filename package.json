@@ -38,7 +38,7 @@
     "url": "http://github.com/telemark/louie-web-base/issues"
   },
   "devDependencies": {
-    "coveralls": "2.13.3",
+    "coveralls": "3.0.1",
     "standard": "5.4.1",
     "tap": "2.3.4"
   },
